@@ -1,4 +1,9 @@
 import axios from "axios";
+import { store } from "../redux/store";
+import {
+  turnOffLoading,
+  turnOnLoading,
+} from "../redux/LoadingReducer/loadingSlice";
 
 export const BASE_URL = "https://movienew.cybersoft.edu.vn";
 export const MA_NHOM = "GP09";
@@ -17,6 +22,7 @@ http.interceptors.request.use(
   function (config) {
     // Do something before request is sent
     console.log("gửi request");
+    store.dispatch(turnOnLoading());
     // Bật loading khi bắt đầu gửi request
     return config;
   },
@@ -31,7 +37,10 @@ http.interceptors.response.use(
   function (response) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
-    console.log("Lỗi response");
+    console.log("nhận response");
+    setTimeout(() => {
+      store.dispatch(turnOffLoading());
+    }, 2000);
     // Tắt loading khi nhận response
     return response;
   },
@@ -39,6 +48,8 @@ http.interceptors.response.use(
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
     // Tắt loading khi nhận reject
+    console.log("Lỗi response");
+    store.dispatch(turnOffLoading());
     return Promise.reject(error);
   }
 );
