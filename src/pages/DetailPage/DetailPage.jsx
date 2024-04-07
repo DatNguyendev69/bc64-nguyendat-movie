@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { movieSer } from '../../service/movieSer';
-import DetailPageSchedule from './DetailPageSchedule';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { movieSer } from "../../service/movieSer";
+import DetailPageSchedule from "./DetailPageSchedule";
+import { useDispatch } from "react-redux";
 import {
   turnOffLoading,
   turnOnLoading,
-} from '../../redux/loadingReducer/loadingSlice';
+} from "../../redux/LoadingReducer/loadingSlice";
 
 const DetailPage = () => {
   // Lấy param idMovie trên url xuống
@@ -18,7 +18,7 @@ const DetailPage = () => {
       let data = await movieSer.getDetailMovie(idMovie);
       setDataMovie(data.data.content);
     } catch (error) {
-      console.log('error: ', error);
+      console.log("error: ", error);
     }
   };
   useEffect(() => {

@@ -1,8 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./src/**/*.{js,jsx,ts,tsx}'],
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      // tailwind là responsive mobile first
+      // ta có thể config lại ở đây để có thể chuyển sang res desktop first
+    },
   },
   plugins: [],
 };

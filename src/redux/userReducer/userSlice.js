@@ -1,14 +1,14 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { loginThunk } from './userThunk';
-import { userLocal } from '../../service/userLocal';
-import { message } from 'antd';
+import { createSlice } from "@reduxjs/toolkit";
+import { loginThunk } from "./userThunk";
+import { userLocal } from "../../service/userLocal";
+import { message } from "antd";
 
 const initialState = {
   infoUser: userLocal.get(),
 };
 
 const userSlice = createSlice({
-  name: 'userSlice',
+  name: "userSlice",
   initialState,
   reducers: {
     logOutAction: (state, action) => {
@@ -27,8 +27,6 @@ const userSlice = createSlice({
           state.infoUser = action.payload;
           //Lưu info user xuống localstorage
           userLocal.set(action.payload);
-        } else {
-          message.error('Đăng nhập thất bại');
         }
       })
       .addCase(loginThunk.pending, (state, action) => {})

@@ -1,38 +1,37 @@
-import axios from 'axios';
-import { useFormik } from 'formik';
-import React from 'react';
-import * as yup from 'yup';
-import { userSer } from '../../service/userSer';
-import { useDispatch } from 'react-redux';
-import { loginThunk } from '../../redux/userReducer/userThunk';
-import { useNavigate } from 'react-router-dom';
-import { message } from 'antd';
+import axios from "axios";
+import { useFormik } from "formik";
+import React from "react";
+import * as yup from "yup";
+import { userSer } from "../../service/userSer";
+import { useDispatch } from "react-redux";
+import { loginThunk } from "../../redux/userReducer/userThunk";
+import { useNavigate } from "react-router-dom";
+import { message } from "antd";
 const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const formLogin = useFormik({
     initialValues: {
-      taiKhoan: '',
-      matKhau: '',
+      taiKhoan: "",
+      matKhau: "",
     },
 
     onSubmit: (value) => {
-      dispatch(loginThunk(value))
-        .unwarp()
-        .then(() => {
-          message.success('Đăng nhập thành công');
-          navigate('/');
-        });
+      const navigateCus = () => {
+        navigate("/");
+      };
+
+      dispatch(loginThunk({ value, navigateCus }));
     },
     validationSchema: yup.object().shape({
       taiKhoan: yup
         .string()
-        .required('Tài khoản không được để trống')
-        .min(4, 'Tài khoản ít phải là 4 chữ cái'),
+        .required("Tài khoản không được để trống")
+        .min(4, "Tài khoản ít phải là 4 chữ cái"),
       matKhau: yup
         .string()
-        .required('Mật Khẩu không được để trống')
-        .min(3, 'Mật khẩu ít phải là 3 chữ cái'),
+        .required("Mật Khẩu không được để trống")
+        .min(3, "Mật khẩu ít phải là 3 chữ cái"),
     }),
   });
   return (
